@@ -1,15 +1,13 @@
-#MEEN-423 Final Project
 
-from sklearn.preprocessing import StandardScaler
-from sklearn.model_selection import train_test_split
-from sklearn.decomposition import PCA
-import matplotlib.pyplot as plt
-import numpy as np
 import pandas as pd
 
-from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Dense
-from tensorflow.keras.regularizers import l2
-from tensorflow.keras.optimizers import Adam
+# Load data from the CSV file
+data = pd.read_csv('Concrete_Data.csv')
 
-from sklearn.metrics import mean_squared_error, r2_score
+# Define the feature columns and target variable
+feature_columns = ['Cement (component 1)(kg in a m^3 mixture)', 'Blast Furnace Slag (component 2)(kg in a m^3 mixture)', 'Fly Ash (component 3)(kg in a m^3 mixture)', 'Water  (component 4)(kg in a m^3 mixture)', 'Superplasticizer (component 5)(kg in a m^3 mixture)', 'Coarse Aggregate  (component 6)(kg in a m^3 mixture)', 'Fine Aggregate (component 7)(kg in a m^3 mixture)', 'Age (day)']
+target_column = 'Concrete Compressive Strength MPA'
+
+# Select features and target from the dataset
+X = data[feature_columns]  # Features (input)
+y = data[target_column]    # Target variable (output)
