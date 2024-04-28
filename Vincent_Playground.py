@@ -68,6 +68,8 @@ scaler.fit(x_train)
 x_train_sc = scaler.transform(x_train)
 x_test_sc = scaler.transform(x_test)
 
+print("*1*")
+
 # PCA
 pca = PCA(n_components=8)
 pca.fit(x_train_sc)
@@ -75,21 +77,32 @@ pca.fit(x_train_sc)
 X_pca_train = pca.transform(x_train_sc)
 X_pca_test = pca.transform(x_test_sc)
 
+print("*2*")
+
 # Creating tenserflow ANN object
 model = Sequential([
     Dense(64, input_shape=(8,), activation='relu'),  # Input layer with 10 principal components
     Dense(32, activation='relu'),  # Hidden layer with 32 neurons
     Dense(3, activation='softmax')  # Output layer with 3 neurons (one for each class)
 ])
+
+print("*3*")
+
 model.compile(optimizer=Adam(learning_rate=.01), loss='sparse_categorical_crossentropy')
+
+print("*4*")
 
 # Training the model
 history = model.fit(X_pca_train, y_train, epochs=10, validation_data=(X_pca_test, y_test), verbose=0)
+print("*5*")
 
 # Testing the model
 training_error = np.sqrt(mean_squared_error(y_train, model.predict(X_pca_train)))
 testing_error = np.sqrt(mean_squared_error(y_test, model.predict(X_pca_test)))
 r_2_score = r2_score(y_test, model.predict(X_pca_test))
+
+print("*6*")
+
 
 print("Training RMSE: " + str(training_error))
 print("Testing RMSE: " + str(testing_error))
